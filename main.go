@@ -16,6 +16,10 @@ func main() {
 	fmt.Println("Hello world")
 }
 
+func goodbye() {
+	fmt.Println("Goodbye world")
+}
+
 // 
 //
 // Book Struct (Model)
