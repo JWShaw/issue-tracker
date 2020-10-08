@@ -1,6 +1,8 @@
 package main
 
 import(
+	"fmt"
+	"math/rand"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -9,7 +11,13 @@ import(
 	"github.com/gorilla/mux"
 )
 
+// Hi I want to merge
+func main() {
+	fmt.Println("Hello world")
+}
 
+// 
+//
 // Book Struct (Model)
 type Book struct {
 	ID		string	`json:"id"`
