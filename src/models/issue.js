@@ -23,6 +23,6 @@ const issueSchema = new mongoose.Schema({
     timestamps: true
 })
 
-const Task = mongoose.model('Issue', issueSchema)
+const Issue = mongoose.model('Issue', issueSchema)
 
-module.exports = Task
+module.exports = Issue

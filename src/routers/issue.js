@@ -72,7 +72,7 @@ router.get('/issues/:id', auth, async (req, res) => {
 // Update a specific issue by its ID
 router.patch('/issues/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['description', 'completed']
+    const allowedUpdates = ['title', 'description', 'completed']
     const isValidOperation = updates.every((update) => 
         allowedUpdates.includes(update))
 
