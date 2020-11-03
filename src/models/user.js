@@ -50,6 +50,15 @@ userSchema.virtual('issues', {
     foreignField: 'owner'
 })
 
+// All the projects created by the user
+userSchema.virtual('projects', {
+    ref: 'Project',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+// What about projects the user is a part of?
+
 userSchema.methods.toJSON = function () {
     const user = this
     const userObject = user.toObject()
