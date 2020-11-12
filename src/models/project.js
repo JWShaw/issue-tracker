@@ -36,7 +36,7 @@ const projectSchema = new mongoose.Schema({
     timestamps: true
 })
 
-userSchema.virtual('issues', {
+projectSchema.virtual('issues', {
     ref: 'Issue',
     localField: '_id',
     foreignField: 'project'
