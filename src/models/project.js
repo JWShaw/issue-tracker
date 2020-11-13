@@ -30,7 +30,7 @@ const projectSchema = new mongoose.Schema({
     }],
     labels: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
+        ref: 'Label'
     }]
 }, {
     timestamps: true

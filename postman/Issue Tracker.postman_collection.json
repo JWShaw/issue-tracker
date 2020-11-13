@@ -140,13 +140,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/users/",
+					"raw": "{{url}}/users/5fadae61febd9a365f355002",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						""
+						"5fadae61febd9a365f355002"
 					]
 				}
 			},
@@ -272,6 +272,54 @@
 					],
 					"path": [
 						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get project by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"projects",
+						"5fadae68febd9a365f355004"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update project (auth)",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"projects",
+						"5fadae68febd9a365f355004"
 					]
 				}
 			},
