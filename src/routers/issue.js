@@ -19,6 +19,8 @@ router.post('/issues', auth, async (req, res) => {
     }
 })
 
+// Need to be able to get issues by priority, label
+// Don't need authorization
 // Get issues by query string.  Currently only returns user's issues.
 // GET /issues?completed=true
 // GET /issues?limit=10&skip=10

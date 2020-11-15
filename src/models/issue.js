@@ -18,9 +18,24 @@ const issueSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
-    }
+    },
+    project: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Project'
+    },
+    labels: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Label'
+    }],
 }, {
     timestamps: true
+})
+
+userSchema.virtual('comments', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'issue'
 })
 
 const Issue = mongoose.model('Issue', issueSchema)
