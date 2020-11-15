@@ -30,13 +30,13 @@ const projectSchema = new mongoose.Schema({
     }],
     labels: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
+        ref: 'Label'
     }]
 }, {
     timestamps: true
 })
 
-userSchema.virtual('issues', {
+projectSchema.virtual('issues', {
     ref: 'Issue',
     localField: '_id',
     foreignField: 'project'

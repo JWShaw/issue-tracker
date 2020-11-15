@@ -32,7 +32,7 @@ const issueSchema = new mongoose.Schema({
     timestamps: true
 })
 
-userSchema.virtual('comments', {
+issueSchema.virtual('comments', {
     ref: 'Comment',
     localField: '_id',
     foreignField: 'issue'

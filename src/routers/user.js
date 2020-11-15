@@ -57,6 +57,23 @@ router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
+// Get user by id
+router.get('/users/:id', async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const user = await User.findById(_id)
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.status(200).send(user)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
 // Update information for logged-in user
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)

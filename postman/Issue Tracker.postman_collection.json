@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Create user",
+			"name": "Create account",
 			"event": [
 				{
 					"listen": "test",
@@ -49,7 +49,7 @@
 			"response": []
 		},
 		{
-			"name": "Login user",
+			"name": "Login",
 			"event": [
 				{
 					"listen": "test",
@@ -93,7 +93,7 @@
 			"response": []
 		},
 		{
-			"name": "Read profile",
+			"name": "Get my profile (auth)",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -123,7 +123,37 @@
 			"response": []
 		},
 		{
-			"name": "Logout user",
+			"name": "Get user profile by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/5fadae61febd9a365f355002",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"5fadae61febd9a365f355002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log me out (auth)",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -150,7 +180,7 @@
 			"response": []
 		},
 		{
-			"name": "Logout user (all sessions)",
+			"name": "Log me out everywhere (auth)",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -177,13 +207,13 @@
 			"response": []
 		},
 		{
-			"name": "Update user information",
+			"name": "Update my user info (auth)",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"John Smith\"\n}",
+					"raw": "{\n    \"name\": \"Terry\",\n    \"email\": \"email@email.email\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -204,7 +234,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete user",
+			"name": "Delete my account (auth)",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -222,13 +252,13 @@
 			"response": []
 		},
 		{
-			"name": "Create new issue",
+			"name": "Create project (auth)",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Test issue\",\n    \"description\": \"This is a new issue.  I made it to test whether this works.\"\n}",
+					"raw": "{\n    \"title\": \"My new project\",\n    \"description\": \"Cool test project\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -236,60 +266,28 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/issues",
+					"raw": "{{url}}/projects",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"issues"
+						"projects"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get issues (query string; auth)",
+			"name": "Get project by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/issues",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"issues"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get issue by ID (auth)",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/issues/5f97e38a3eb4344fa5afa66c",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"issues",
-						"5f97e38a3eb4344fa5afa66c"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update issue",
-			"request": {
-				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"test issue title change\"\n}",
+					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -297,31 +295,31 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/issues/5f97e38a3eb4344fa5afa66c",
+					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"issues",
-						"5f97e38a3eb4344fa5afa66c"
+						"projects",
+						"5fadae68febd9a365f355004"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete issue",
+			"name": "Update project (auth)",
 			"request": {
-				"method": "DELETE",
+				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/issues/5f97e38a3eb4344fa5afa66c",
+					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"issues",
-						"5f97e38a3eb4344fa5afa66c"
+						"projects",
+						"5fadae68febd9a365f355004"
 					]
 				}
 			},
