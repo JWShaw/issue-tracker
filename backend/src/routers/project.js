@@ -37,6 +37,15 @@ router.get('/projects/:id', async (req, res) => {
     }
 })
 
+// Get all projects
+router.get('/projects', async (req, res) => {
+    Project.find({}).then((projects) => {
+        res.send(projects)
+    }).catch((e) => {
+        res.status(500).send(e)
+    })
+})
+
 // Update a project.  TODO: make it so permissioned users can perform this task
 router.patch('/projects/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body)
