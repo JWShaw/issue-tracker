@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    <router-view/>
+    <div class="container-fluid">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -16,5 +18,8 @@ export default {
 </script>
 
 <style>
-
+.container-fluid {
+  padding: 3% 15%;
+  max-width: 1140px;
+}
 </style>

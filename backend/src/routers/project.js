@@ -37,9 +37,26 @@ router.get('/projects/:id', async (req, res) => {
     }
 })
 
-// Get all projects
+
+// Get all projects (with sorting and pagination)
+// GET /projects?limit=10&skip=20
+// GET /projects?sortBy=createdAt:asc
+// GET /projects?sortBy=createdAt:desc
 router.get('/projects', async (req, res) => {
-    Project.find({}).then((projects) => {
+
+    const options = {
+        limit: parseInt(req.query.limit),
+        skip: parseInt(req.query.skip)
+    }
+
+    const sort = {}
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        options.sort = sort
+    }
+
+    Project.find({}, null, options).then((projects) => {
         res.send(projects)
     }).catch((e) => {
         res.status(500).send(e)

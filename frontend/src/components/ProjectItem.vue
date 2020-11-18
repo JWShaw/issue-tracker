@@ -1,5 +1,4 @@
 <template>
-  <div class="project-item">
     <b-card
       v-bind:title="project.title"
       class="mb-2"
@@ -8,7 +7,6 @@
         {{ project.description }}
       </b-card-text>
     </b-card>
-  </div>
 </template>
 
 <script>
