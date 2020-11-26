@@ -1,6 +1,5 @@
 const express = require('express')
 const Issue = require('../models/issue')
-const Project = require('../models/project')
 const auth = require('../middleware/auth')
 const validProject = require('../middleware/validProject')
 
@@ -41,7 +40,7 @@ router.get('/projects/:projId/issues', validProject, async (req, res) => {
         options.sort = sort
     }
 
-    Issue.find({}, null, options).then((issues) => {
+    Issue.find({ project: req.project._id }, null, options).then((issues) => {
         res.send(issues)
     }).catch((e) => {
         res.status(500).send(e)
@@ -53,7 +52,7 @@ router.get('/projects/:projId/issues/:issueId', validProject, async (req, res) =
     const _id = req.params.issueId
 
     try {
-        const issue = await Issue.findById(_id)
+        const issue = await Issue.findOne({ _id, project: req.project._id })
 
         if (!issue) {
             return res.status(404).send()
@@ -77,7 +76,11 @@ router.patch('/projects/:projId/issues/:issueId', auth, validProject, async (req
     }
 
     try {
-        const issue = await Issue.findOne({ _id: req.params.issueId, owner: req.user._id })
+        const issue = await Issue.findOne({
+            _id: req.params.issueId,
+            owner: req.user._id,
+            project: req.project._id
+        })
 
         if (!issue) {
             return res.status(404).send()
@@ -95,7 +98,11 @@ router.patch('/projects/:projId/issues/:issueId', auth, validProject, async (req
 // Delete a specific issue by its ID
 router.delete('/projects/:projId/issues/:issueId', auth, validProject, async (req, res) => {
     try {
-        const issue = await Issue.findOneAndDelete({ _id: req.params.issueId, owner: req.user._id })
+        const issue = await Issue.findOneAndDelete({
+            _id: req.params.issueId,
+            owner: req.user._id,
+            project: req.project._id
+        })
 
         if (!issue) {
             return res.status(404).send()

@@ -6,368 +6,685 @@
 	},
 	"item": [
 		{
-			"name": "Create account",
-			"event": [
+			"name": "User",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "e8ea2867-16e3-45a5-b605-ca40248f8a0b",
-						"exec": [
-							"if (pm.response.code == 201) {",
-							"    pm.environment.set('authToken', pm.response.json().token)    ",
-							"}"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Create account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8ea2867-16e3-45a5-b605-ca40248f8a0b",
+								"exec": [
+									"if (pm.response.code == 201) {",
+									"    pm.environment.set('authToken', pm.response.json().token)    ",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5dd42380-431f-4472-9023-a638ac171496",
+								"exec": [
+									"if (pm.response.code == 200) {",
+									"    pm.environment.set('authToken', pm.response.json().token)    ",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my profile (auth)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user profile by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/5fadae61febd9a365f355002",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"5fadae61febd9a365f355002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log me out (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"tonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log me out everywhere (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"tonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/logoutAll",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logoutAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my user info (auth)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Terry\",\n    \"email\": \"email@email.email\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete my account (auth)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/users",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Login",
-			"event": [
+			"name": "Project",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "5dd42380-431f-4472-9023-a638ac171496",
-						"exec": [
-							"if (pm.response.code == 200) {",
-							"    pm.environment.set('authToken', pm.response.json().token)    ",
-							"}"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Create project (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Project 5\",\n    \"description\": \"5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get project by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fadae68febd9a365f355004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all projects (sorting; pagination)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects?limit=3&skip=1&sortBy=createdAt:asc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "skip",
+									"value": "1"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt:asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update project (auth)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"My updated project title\",\n    \"description\": \"my updated description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fadae68febd9a365f355004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete project (auth)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fadae68febd9a365f355004"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Issue",
+			"item": [
+				{
+					"name": "Create issue (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Great Issue\",\n    \"description\": \"Cool\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/users/login",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get my profile (auth)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get issues (sorting; pagination)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues?sortBy=createdAt:desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "createdAt:desc"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/users/me",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"me"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get user profile by id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get issue by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf0345996cbcb467e61fcc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf0345996cbcb467e61fcc"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/users/5fadae61febd9a365f355002",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"5fadae61febd9a365f355002"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Log me out (auth)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"tonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Update issue (auth)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated.\",\n    \"description\": \"Also updated.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf0345996cbcb467e61fcc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf0345996cbcb467e61fcc"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/users/logout",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"logout"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Log me out everywhere (auth)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"tonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Delete issue (auth)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf0345996cbcb467e61fcc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf0345996cbcb467e61fcc"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/users/logoutAll",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"logoutAll"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Update my user info (auth)",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Terry\",\n    \"email\": \"email@email.email\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Create comment (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"New Comment (third)\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf073c9a3a23b64d9de9ca",
+								"comments"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/users/me",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"me"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete my account (auth)",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/users/me",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"me"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create project (auth)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"Another cool project\",\n    \"description\": \"Wow!\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get comments (pagination)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments?limit=2&skip=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf073c9a3a23b64d9de9ca",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "skip",
+									"value": "1"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/projects",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"projects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get project by id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get comment by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments/5fbf4cd157a95dd765cc695c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf073c9a3a23b64d9de9ca",
+								"comments",
+								"5fbf4cd157a95dd765cc695c"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"projects",
-						"5fadae68febd9a365f355004"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all projects (sorting; pagination; no auth)",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/projects",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"projects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update project (auth)",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"My updated project title\",\n    \"description\": \"my updated description\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Update comment (auth)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Updated Comment Text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments/5fbf4cd157a95dd765cc695c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf073c9a3a23b64d9de9ca",
+								"comments",
+								"5fbf4cd157a95dd765cc695c"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"projects",
-						"5fadae68febd9a365f355004"
-					]
+				{
+					"name": "Delete comment (auth)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments/5fbf4cd157a95dd765cc695c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"issues",
+								"5fbf073c9a3a23b64d9de9ca",
+								"comments",
+								"5fbf4cd157a95dd765cc695c"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete project (auth)",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"projects",
-						"5fadae68febd9a365f355004"
-					]
-				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {

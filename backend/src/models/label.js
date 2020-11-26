@@ -2,6 +2,7 @@
 // Issues can have labels
 
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 const labelSchema = new mongoose.Schema({
     name: {
