@@ -1,8 +1,6 @@
 // Labels associated with projects
 // Issues can have labels
-
 const mongoose = require('mongoose')
-const validator = require('validator')
 
 const labelSchema = new mongoose.Schema({
     name: {
@@ -12,9 +10,20 @@ const labelSchema = new mongoose.Schema({
     },
     color: {
         type: String,
-        default: "Yellow"
+        default: "Yellow",
+        validate(value) {
+            const acceptedColors = ["Red", "Yellow", "Green", "Blue", "Violet"]
+            if (!(acceptedColors.includes(value))) {
+                throw new Error('Color invalid!')
+            }
+        }
     },
     project: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'

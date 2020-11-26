@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Label = require('./label')
 
 const issueSchema = new mongoose.Schema({
     title: {
@@ -26,6 +27,7 @@ const issueSchema = new mongoose.Schema({
     },
     labels: [{
         type: mongoose.Schema.Types.ObjectId,
+        unique: true,
         ref: 'Label'
     }],
 }, {

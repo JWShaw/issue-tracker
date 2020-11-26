@@ -493,7 +493,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Updated.\",\n    \"description\": \"Also updated.\"\n}",
+							"raw": "{\n    \"title\": \"Updated.\",\n    \"description\": \"Also updated.\",\n    \"labels\": [\"5fbf5d0b3c2e99df901d87b3\", \"5fbf5d0b3c2e99df901d87b4\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -501,7 +501,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf0345996cbcb467e61fcc",
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf5e940f92a9e0325f1bf7",
 							"host": [
 								"{{url}}"
 							],
@@ -509,7 +509,7 @@
 								"projects",
 								"5fb4ef4a85240f376cf2fbdc",
 								"issues",
-								"5fbf0345996cbcb467e61fcc"
+								"5fbf5e940f92a9e0325f1bf7"
 							]
 						}
 					},
@@ -678,6 +678,134 @@
 								"5fbf073c9a3a23b64d9de9ca",
 								"comments",
 								"5fbf4cd157a95dd765cc695c"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Label",
+			"item": [
+				{
+					"name": "Create label (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Label 3\",\n    \"color\": \"Violet\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get labels",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get label by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels/5fbf5d193c2e99df901d87b4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"labels",
+								"5fbf5d193c2e99df901d87b4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update label (auth)",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Cooler Label\",\n    \"color\": \"Violet\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels/5fbf5d193c2e99df901d87b4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"labels",
+								"5fbf5d193c2e99df901d87b4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete label (auth)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels/5fbf5d193c2e99df901d87b4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"projects",
+								"5fb4ef4a85240f376cf2fbdc",
+								"labels",
+								"5fbf5d193c2e99df901d87b4"
 							]
 						}
 					},

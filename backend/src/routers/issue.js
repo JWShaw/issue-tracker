@@ -2,11 +2,13 @@ const express = require('express')
 const Issue = require('../models/issue')
 const auth = require('../middleware/auth')
 const validProject = require('../middleware/validProject')
+const validLabels = require('../middleware/validLabels')
+const Label = require('../models/label')
 
 const router = new express.Router()
 
 // Create a new issue (for logged-in user)
-router.post('/projects/:projId/issues/', auth, validProject, async (req, res) => {
+router.post('/projects/:projId/issues/', auth, validProject, validLabels, async (req, res) => {
 
     const issue = new Issue({
         ...req.body, 
@@ -65,9 +67,9 @@ router.get('/projects/:projId/issues/:issueId', validProject, async (req, res) =
 })
 
 // Update a specific issue by its ID
-router.patch('/projects/:projId/issues/:issueId', auth, validProject, async (req, res) => {
+router.patch('/projects/:projId/issues/:issueId', auth, validProject, validLabels, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['title', 'description', 'completed']
+    const allowedUpdates = ['title', 'description', 'completed', 'labels']
     const isValidOperation = updates.every((update) => 
         allowedUpdates.includes(update))
 
@@ -85,6 +87,18 @@ router.patch('/projects/:projId/issues/:issueId', auth, validProject, async (req
         if (!issue) {
             return res.status(404).send()
         }
+
+        // if (updates.includes('labels')) {
+
+        //     const updatesValidity = await Promise.all(req.body.labels.map((labelId) => {
+        //         return Label.exists({ _id: labelId, project: req.project._id })
+        //     }))
+
+
+        //     if (updatesValidity.some(value => value == false)) {
+        //         return res.status(400).send({ error: 'Invalid label!' })
+        //     }
+        // }
 
         updates.forEach((update) => issue[update] = req.body[update])
 

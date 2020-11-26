@@ -5,6 +5,7 @@ const userRouter = require('./routers/user')
 const projectRouter = require('./routers/project')
 const issueRouter = require('./routers/issue')
 const commentRouter = require('./routers/comment')
+const labelRouter = require('./routers/label')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(userRouter)
 app.use(issueRouter)
 app.use(projectRouter)
 app.use(commentRouter)
+app.use(labelRouter)
 
 module.exports = app
 
