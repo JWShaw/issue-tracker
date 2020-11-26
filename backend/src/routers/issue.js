@@ -1,14 +1,18 @@
 const express = require('express')
 const Issue = require('../models/issue')
+const Project = require('../models/project')
 const auth = require('../middleware/auth')
+const validProject = require('../middleware/validProject')
 
 const router = new express.Router()
 
 // Create a new issue (for logged-in user)
-router.post('/issues', auth, async (req, res) => {
+router.post('/projects/:projId/issues/', auth, validProject, async (req, res) => {
+
     const issue = new Issue({
         ...req.body, 
-        owner: req.user._id
+        owner: req.user._id,
+        project: req.project._id 
     })
 
     try {
@@ -19,47 +23,37 @@ router.post('/issues', auth, async (req, res) => {
     }
 })
 
-// Need to be able to get issues by priority, label
-// Don't need authorization
-// Get issues by query string.  Currently only returns user's issues.
-// GET /issues?completed=true
-// GET /issues?limit=10&skip=10
-// GET /issues?sortBy=createdAt:asc
-router.get('/issues', auth, async (req, res) => {
-    const match = {}
-    const sort = {}
+// Get all projects (with sorting and pagination)
+// GET /projects/:projId/issues?limit=10&skip=20
+// GET /projects/:projId/issues?sortBy=createdAt:asc
+// GET /projects/:projId/issues?sortBy=createdAt:desc
+router.get('/projects/:projId/issues', validProject, async (req, res) => {
 
-    if (req.query.completed) {
-        match.completed = req.query.completed === 'true'
+    const options = {
+        limit: parseInt(req.query.limit),
+        skip: parseInt(req.query.skip)
     }
 
+    const sort = {}
     if (req.query.sortBy) {
         const parts = req.query.sortBy.split(':')
         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        options.sort = sort
     }
 
-    try {
-        await req.user.populate({
-            path: 'issues',
-            match,
-            options: {
-                limit: parseInt(req.query.limit),
-                skip: parseInt(req.query.skip),
-                sort
-            }
-        }).execPopulate()
-        res.send(req.user.issues)
-    } catch (e) {
-        res.status(500).send()
-    }
+    Issue.find({}, null, options).then((issues) => {
+        res.send(issues)
+    }).catch((e) => {
+        res.status(500).send(e)
+    })
 })
 
 // Fetch a specific issue by its ID
-router.get('/issues/:id', auth, async (req, res) => {
-    const _id = req.params.id
+router.get('/projects/:projId/issues/:issueId', validProject, async (req, res) => {
+    const _id = req.params.issueId
 
     try {
-        const issue = await Issue.findOne({ _id, owner: req.user._id })
+        const issue = await Issue.findById(_id)
 
         if (!issue) {
             return res.status(404).send()
@@ -72,18 +66,18 @@ router.get('/issues/:id', auth, async (req, res) => {
 })
 
 // Update a specific issue by its ID
-router.patch('/issues/:id', auth, async (req, res) => {
+router.patch('/projects/:projId/issues/:issueId', auth, validProject, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['title', 'description', 'completed']
     const isValidOperation = updates.every((update) => 
         allowedUpdates.includes(update))
 
     if (!isValidOperation) {
-        res.status(400).send({ error: 'Invalid update!' })
+        return res.status(400).send({ error: 'Invalid update!' })
     }
 
     try {
-        const issue = await Issue.findOne({ _id: req.params.id, owner: req.user._id })
+        const issue = await Issue.findOne({ _id: req.params.issueId, owner: req.user._id })
 
         if (!issue) {
             return res.status(404).send()
@@ -99,9 +93,9 @@ router.patch('/issues/:id', auth, async (req, res) => {
 })
 
 // Delete a specific issue by its ID
-router.delete('/issues/:id', auth, async (req, res) => {
+router.delete('/projects/:projId/issues/:issueId', auth, validProject, async (req, res) => {
     try {
-        const issue = await Issue.findOneAndDelete({ _id: req.params.id, owner: req.user._id })
+        const issue = await Issue.findOneAndDelete({ _id: req.params.issueId, owner: req.user._id })
 
         if (!issue) {
             return res.status(404).send()
