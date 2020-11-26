@@ -258,7 +258,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"My new project\",\n    \"description\": \"Cool test project\"\n}",
+					"raw": "{\n    \"title\": \"Another cool project\",\n    \"description\": \"Wow!\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -308,9 +308,53 @@
 			"response": []
 		},
 		{
+			"name": "Get all projects (sorting; pagination; no auth)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/projects",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update project (auth)",
 			"request": {
 				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"My updated project title\",\n    \"description\": \"my updated description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"projects",
+						"5fadae68febd9a365f355004"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete project (auth)",
+			"request": {
+				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "{{url}}/projects/5fadae68febd9a365f355004",
