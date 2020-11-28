@@ -1,11 +1,14 @@
+
 <template>
   <div class="login">
-    <h1>Login</h1>
-    <input type="text" name="username" placeholder="Username" />
-    <input
-      type="password"
-      name="password"
-      placeholder="Password"
-    />
+    <login />
   </div>
 </template>
+<script>
+import login from "../components/auth/Login";
+export default {
+  components: {
+    login
+  }
+};
+</script>

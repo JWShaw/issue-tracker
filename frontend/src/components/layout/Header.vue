@@ -34,10 +34,10 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em>User</em>
+              <em>{{ user._id }}</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -46,8 +46,25 @@
 </template>
 
 <script>
+import VueJWTDecode from "vue-jwt-decode"
 export default {
   name: 'Header',
-  
+  data() {
+    return {
+      user: {}
+    }
+  },
+  methods: {
+    getUserInfo() {
+      const token = localStorage.getItem("jwt")
+      const decoded = VueJWTDecode.decode(token)
+      console.log(decoded)
+      this.user = decoded
+    },
+    logout() {
+      localStorage.removeItem("jwt")
+      this.$router.push("/")
+    }
+  }
 }
 </script>
