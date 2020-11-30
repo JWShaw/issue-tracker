@@ -11,8 +11,8 @@ const validLabels = async (req, res, next) => {
             if (updatesValidity.some(value => value == false)) {
                 return res.status(400).send({ error: 'Invalid label!' })
             }
-            next()
         }
+        next()
     } catch (e) {
         res.status(500).send(e)
     }

@@ -1,5 +1,5 @@
 <template>
-  <a>
+  <a v-bind:href="'#/projects/'+ $route.params.projId + '/issues/' + issue._id">
     <b-card
       v-bind:title="issue.title"
       class="mb-2"
