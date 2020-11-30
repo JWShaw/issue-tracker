@@ -10,13 +10,26 @@
 
 <script>
 import ProjectItem from './ProjectItem.vue'
+import axios from 'axios'
 
 export default {
   name: "Projects",
   components: {
     ProjectItem
   },
-  props: ["projects"]
+  data() {
+    return {
+      projects: []
+    }
+  },
+  created() {
+    axios.get('http://localhost:3000/projects')
+      .then(res => {
+        this.projects = res.data
+        console.log(res.data)
+      })
+      .catch(err => console.log(err));
+  }
 }
 </script>
 
