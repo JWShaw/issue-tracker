@@ -1,11 +1,11 @@
 <template>
-  <a v-bind:href="'#/projects/'+project._id">
+  <a>
     <b-card
-      v-bind:title="project.title"
+      v-bind:title="issue.title"
       class="mb-2"
     >
       <b-card-text>
-        {{ project.description }}
+        {{ issue.description }}
       </b-card-text>
     </b-card>
   </a>
@@ -13,13 +13,13 @@
 
 <script>
 export default {
-  name: "ProjectItem",
-  props: ["project"],
+  name: "IssueItem",
+  props: ["issue"],
 };
 </script>
 
 <style scoped>
-.project-item {
+.issue-item {
   margin: 5px;
 }
 </style>

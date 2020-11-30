@@ -26,7 +26,6 @@ export default {
     axios.get('http://localhost:3000/projects')
       .then(res => {
         this.projects = res.data
-        console.log(res.data)
       })
       .catch(err => console.log(err));
   }
