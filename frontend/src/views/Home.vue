@@ -1,34 +1,7 @@
 <template>
   <div class="home">
-    <Projects v-bind:projects="projects" />
   </div>
 </template>
-
-<script>
-// @ is an alias to /src
-import Projects from '../components/Projects';
-import axios from 'axios';
-
-export default {
-  name: 'Home',
-  components: {
-    Projects
-  },
-  data() {
-    return {
-      projects: [],
-    }
-  },
-  created() {
-    axios.get('http://localhost:3000/projects')
-      .then(res => {
-        this.projects = res.data
-        console.log(res.data)
-      })
-      .catch(err => console.log(err));
-  }
-}
-</script>
 
 <style>
   * {
