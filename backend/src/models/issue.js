@@ -27,7 +27,6 @@ const issueSchema = new mongoose.Schema({
     },
     labels: [{
         type: mongoose.Schema.Types.ObjectId,
-        unique: true,
         ref: 'Label'
     }],
 }, {

@@ -35,8 +35,18 @@ const projectOne = {
 	owner: userOneId
 }
 
+const labelOneId = new mongoose.Types.ObjectId()
+const labelOne = {
+	_id: labelOneId,
+	name: 'Label 1',
+	color: 'Blue',
+	project: projectOneId,
+	owner: userOneId
+}
+
 const issueOneId = new mongoose.Types.ObjectId()
 const issueOne = {
+	_id: issueOneId,
 	title: 'Issue 1',
 	description: '1',
 	completed: false,
@@ -44,13 +54,6 @@ const issueOne = {
 	project: projectOneId
 }
 
-const labelOneId = new mongoose.Types.ObjectId()
-const labelOne = {
-	name: 'Label 1',
-	color: 'Blue',
-	project: projectOneId,
-	owner: userOneId
-}
 
 const setupDatabase = async () => {
     await User.deleteMany()
@@ -58,10 +61,11 @@ const setupDatabase = async () => {
     await new User(userTwo).save()
 	await Project.deleteMany()
 	await new Project(projectOne).save()
-	await Issue.deleteMany()
-	await new Issue(issueOne).save()
 	await Label.deleteMany()
 	await new Label(labelOne).save()
+	await Issue.deleteMany()
+	await new Issue(issueOne).save()
+	
 }
 
 module.exports = {

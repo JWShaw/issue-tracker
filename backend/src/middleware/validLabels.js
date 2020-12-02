@@ -3,7 +3,6 @@ const Label = require('../models/label')
 const validLabels = async (req, res, next) => {
     try {
         if (Object.keys(req.body).includes('labels')) {
-
             const updatesValidity = await Promise.all(req.body.labels.map((labelId) => {
                 return Label.exists({ _id: labelId, project: req.project._id })
             }))

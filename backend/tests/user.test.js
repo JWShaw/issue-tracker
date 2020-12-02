@@ -60,8 +60,8 @@ test('Test creation, updating, deletion of project', async () => {
 		.post('/projects')
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'title' : 'Project 2',
-			'description' : '2'
+			title : 'Project 2',
+			description : '2'
 		})
 		.expect(201)
 	
@@ -74,8 +74,8 @@ test('Test creation, updating, deletion of project', async () => {
 		.patch('/projects/' + project._id)
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'title' : 'Project 2 (updated)',
-			'description' : 'Updated'
+			title : 'Project 2 (updated)',
+			description : 'Updated'
 		})
 		.expect(200)
 	
@@ -109,17 +109,15 @@ test('Test creation, updating, deletion of issue', async () => {
     })
 	
 	// Creating issue
-	console.log(projectOneId)
 	const issueResponse = await request(app)
 		.post('/projects/' + projectOneId + '/issues')
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'title' : 'Issue 2',
-			'description' : '2'
+			title : 'Issue 2',
+			description : '2'
 		})
-		//.expect(201)
+		.expect(201)
 	
-	console.log(issueResponse.error)
 	// Assertions about the response
 	const issue = await Issue.findById(issueResponse.body._id)
 	expect(issue).not.toBeNull()
@@ -129,19 +127,18 @@ test('Test creation, updating, deletion of issue', async () => {
 		.patch('/projects/' + projectOneId + '/issues/' + issue._id)
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'completed' : true,
-			'title' : 'Issue 2 (updated)',
-			'description' : 'Updated',
-			'labels' : [labelOneId]
+			completed : true,
+			title : 'Issue 2 (updated)',
+			description : 'Updated',
+			labels : [labelOneId]
 		})
 		.expect(200)
-	
+		
 	// Deleting issue
 	const issueDeleteResponse = await request(app)
-		.delete('/projects/' + projectOneId + '/issues/' + issue._ud)
+		.delete('/projects/' + projectOneId + '/issues/' + issue._id)
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.expect(200)
-	
 })
 
 test('Test creation, updating, deletion of comment', async () => {
@@ -170,7 +167,7 @@ test('Test creation, updating, deletion of comment', async () => {
 		.post('/projects/' + projectOneId + '/issues/' + issueOneId + '/comments')
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'text' : 'First comment'
+			text : 'First comment'
 		})
 		.expect(201)
 	
@@ -183,7 +180,7 @@ test('Test creation, updating, deletion of comment', async () => {
 		.patch('/projects/' + projectOneId + '/issues/' + issueOneId + '/comments/' + comment._id)
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'text' : 'Updated first comment'
+			text : 'Updated first comment'
 		})
 		.expect(200)
 	
@@ -221,8 +218,8 @@ test('Test creation, updating, deletion of label', async () => {
 		.post('/projects/' + projectOneId + '/labels')
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'name' : 'Label 2',
-			'color' : 'Blue'
+			name : 'Label 2',
+			color : 'Blue'
 		})
 		.expect(201)
 	
@@ -235,8 +232,8 @@ test('Test creation, updating, deletion of label', async () => {
 		.patch('/projects/' + projectOneId + '/labels/' + label._id)
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'name' : 'Label 2 (Updated)',
-			'color' : 'Violet'
+			name : 'Label 2 (Updated)',
+			color : 'Violet'
 		})
 		.expect(200)
 	
@@ -251,18 +248,18 @@ test('Test registration of new user with invalid password/email', async () => {
 	const userOneResponse = await request(app)
 		.post('/users')
 		.send({
-			'name' : 'Test',
-			'email' : 'invalidEmail',
-			'password' : 'chicken'
+			name : 'Test',
+			email : 'invalidEmail',
+			password : 'chicken'
 		})
 		.expect(400)
 	
 	const userTwoResponse = await request(app)
 		.post('/users')
 		.send({
-			'name' : 'Test',
-			'email' : 'test@gmail.com',
-			'password' : 'passwordOne'
+			name : 'Test',
+			email : 'test@gmail.com',
+			password : 'passwordOne'
 		})
 		.expect(400)
 })
@@ -271,8 +268,8 @@ test('Test updating of user with/without authentication', async () => {
 	const userOneResponse = await request(app)
 		.patch('/users/me')
 		.send({
-			'name' : 'Test',
-			'email' : 'test@gmail.com'
+			name : 'Test',
+			email : 'test@gmail.com'
 		})
 		.expect(401)
 	
@@ -295,8 +292,8 @@ test('Test updating of user with/without authentication', async () => {
 		.patch('/users/me')
 		.set('Authorization', `Bearer ${user.tokens[0].token}`)
 		.send({
-			'name' : 'Test',
-			'email' : 'test@gmail.com'
+			name : 'Test',
+			email : 'test@gmail.com'
 		})
 		.expect(200)
 	
