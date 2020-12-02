@@ -27,10 +27,6 @@ const projectSchema = new mongoose.Schema({
                 required: true
             }
         }
-    }],
-    labels: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Label'
     }]
 }, {
     timestamps: true
