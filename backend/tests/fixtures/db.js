@@ -4,6 +4,7 @@ const User = require('../../src/models/user')
 const Project = require('../../src/models/project')
 const Issue = require('../../src/models/issue')
 const Label = require('../../src/models/label')
+const Comment = require('../../src/models/comment')
 
 const userOneId = new mongoose.Types.ObjectId()
 const userOne = {
@@ -54,6 +55,14 @@ const issueOne = {
 	project: projectOneId
 }
 
+const commentOneId = new mongoose.Types.ObjectId()
+const commentOne = {
+	_id: commentOneId,
+	text: 'Comment 1',
+	issue: issueOneId,
+	owner: userOneId
+}
+
 
 const setupDatabase = async () => {
     await User.deleteMany()
@@ -65,7 +74,8 @@ const setupDatabase = async () => {
 	await new Label(labelOne).save()
 	await Issue.deleteMany()
 	await new Issue(issueOne).save()
-	
+	await Comment.deleteMany()	
+	await new Comment(commentOne).save()
 }
 
 module.exports = {
@@ -79,5 +89,7 @@ module.exports = {
 	issueOne,
 	labelOneId,
 	labelOne,
+	commentOneId,
+	commentOne,
     setupDatabase
 }
