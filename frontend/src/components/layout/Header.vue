@@ -30,7 +30,7 @@
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown> -->
-          <div v-if="this.user == true">
+          <div>
             <b-nav-item-dropdown right>
               <template #button-content>
                 <em>{{ user._id }}</em>
@@ -39,10 +39,10 @@
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </div>
-          <b-button-group v-else>
+          <!-- <b-button-group v-else>
             <b-button variant="outline-light" href="#/login">Login</b-button>
             <b-button variant="light" href="#/register">Register</b-button>
-          </b-button-group>
+          </b-button-group> -->
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

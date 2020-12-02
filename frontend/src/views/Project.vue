@@ -1,6 +1,6 @@
 <template>
   <div class="project">
-      <h1>{{ project.title }}</h1>
+      <b-button v-bind:href="'#/projects/'+$route.params.projId+'/createissue'">Create Issue</b-button>
       <Issues v-bind:issues="issues"/>
   </div>
 </template>

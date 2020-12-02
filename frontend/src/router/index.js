@@ -34,11 +34,39 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/createproject',
+    name: 'Create Project',
+    component: () => import('../views/CreateProject.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/projects/:projId/createissue',
+    name: 'Create Issue',
+    component: () => import('../views/CreateIssue.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem('jwt') == null) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    }
+  }
+  next()
 })
 
 export default router

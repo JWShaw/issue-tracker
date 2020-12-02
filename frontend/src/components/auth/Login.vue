@@ -41,6 +41,7 @@ export default {
         const token = response.data.token
         if (token) {
           localStorage.setItem("jwt", token)
+          localStorage.setItem("userId", response.data.user._id)
           this.$router.push("/")
           console.log("Login Successful")
         } else {
