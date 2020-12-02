@@ -52,7 +52,7 @@ export default {
         }
       })
       .then(() => {
-        this.$swal('Issue created successfully!', {
+        this.$swal('Project created successfully!', {
             icon: "success",
             buttons: false,
             timer: 1500,

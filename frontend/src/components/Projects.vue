@@ -1,10 +1,17 @@
 
 <template>
 <div>
-  <h1>Projects</h1>
-  <div v-bind:key="project.id" v-for="project in projects">
-    <ProjectItem v-bind:project="project" />
+  <div class="d-flex w-100 justify-content-between topbar">
+    <h4>All Projects</h4>
+    <b-button href="#/createproject">New Project</b-button>
   </div>
+  <b-list-group v-bind:key="project.id" v-for="project in projects">
+    <b-list-group-item 
+     v-bind:href="`#/projects/${project._id}`"
+    >
+      <ProjectItem v-bind:project="project" />
+    </b-list-group-item>
+  </b-list-group>
 </div>
 </template>
 
@@ -32,3 +39,8 @@ export default {
 }
 </script>
 
+<style scoped>
+  .topbar {
+    margin-bottom: 1em;
+  }
+</style>
