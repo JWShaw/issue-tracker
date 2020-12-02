@@ -94,14 +94,16 @@ router.patch('/projects/:id', auth, async (req, res) => {
 // Delete a project.  TODO: make it so permissioned users can perform this task
 router.delete('/projects/:id', auth, async (req, res) => {
     try{
-        const project = await Project.findOneAndDelete(
-            { _id: req.params.id, owner: req.user._id })
+        const project = await Project.findOneAndDelete({
+			_id: req.params.id, 
+			owner: req.user._id 
+		})
         
         if (!project) {
             return res.status(404).send()
         }
 
-        res.send(task)
+        res.send(project)
     } catch (e) {
         res.status(500).send(e)
     }

@@ -8,7 +8,7 @@ const Label = require('../models/label')
 const router = new express.Router()
 
 // Create a new issue (for logged-in user)
-router.post('/projects/:projId/issues/', auth, validProject, validLabels, async (req, res) => {
+router.post('/projects/:projId/issues', auth, validProject, validLabels, async (req, res) => {
 
     const issue = new Issue({
         ...req.body, 

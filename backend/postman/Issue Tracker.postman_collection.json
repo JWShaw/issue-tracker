@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "856f3838-c0ac-4607-8981-b6c9608e2f43",
+		"_postman_id": "fda8b833-288b-4be9-9c9b-f99c55a4b9b1",
 		"name": "Issue Tracker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e8ea2867-16e3-45a5-b605-ca40248f8a0b",
+								"id": "6e7664a0-6ad0-4d4c-8e1b-94398dd987cd",
 								"exec": [
 									"if (pm.response.code == 201) {",
 									"    pm.environment.set('authToken', pm.response.json().token)    ",
@@ -32,7 +32,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"raw": "{\n    \"name\": \"Kelvan\",\n    \"email\": \"test@gmail.com\",\n    \"password\": \"chicken\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -57,10 +57,11 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5dd42380-431f-4472-9023-a638ac171496",
+								"id": "377a2d17-2b01-4b2c-a71f-aacff7266c50",
 								"exec": [
 									"if (pm.response.code == 200) {",
-									"    pm.environment.set('authToken', pm.response.json().token)    ",
+									"    pm.environment.set('authToken', pm.response.json().token)",
+									"    pm.environment.set('userID', pm.response.json().user._id) ",
 									"}"
 								],
 								"type": "text/javascript"
@@ -75,7 +76,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"chicken\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -105,7 +106,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -138,7 +139,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -146,13 +147,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/users/5fadae61febd9a365f355002",
+							"raw": "{{url}}/users/{{userID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"5fadae61febd9a365f355002"
+								"{{userID}}"
 							]
 						}
 					},
@@ -165,7 +166,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"tonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"raw": "{\n    \"email\": \"kcjquadrical@gmail.com\",\n    \"password\": \"chicken\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,12 +266,26 @@
 			"item": [
 				{
 					"name": "Create project (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "77ee4b85-1fb2-4bd0-9e8a-e8946e323e81",
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    pm.environment.set('projectID', pm.response.json()._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Project 5\",\n    \"description\": \"5\"\n}",
+							"raw": "{\n    \"title\": \"Project 1\",\n    \"description\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -302,7 +317,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jonathan Shaw\",\n    \"email\": \"jonshaw@shaw.ca\",\n    \"password\": \"chicken\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,13 +325,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+							"raw": "{{url}}/projects/{{projectID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fadae68febd9a365f355004"
+								"{{projectID}}"
 							]
 						}
 					},
@@ -324,6 +339,20 @@
 				},
 				{
 					"name": "Get all projects (sorting; pagination)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5937d47a-a91e-4ce2-ba06-7a47aa70a4bf",
+								"exec": [
+									"if (pm.response.code == 200) {\r",
+									"    pm.environment.set('projectID', pm.response.json()[1]._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -331,7 +360,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects?limit=3&skip=1&sortBy=createdAt:asc",
+							"raw": "{{url}}/projects?limit=3&skip=0&sortBy=createdAt:asc",
 							"host": [
 								"{{url}}"
 							],
@@ -345,7 +374,7 @@
 								},
 								{
 									"key": "skip",
-									"value": "1"
+									"value": "0"
 								},
 								{
 									"key": "sortBy",
@@ -371,13 +400,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+							"raw": "{{url}}/projects/{{projectID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fadae68febd9a365f355004"
+								"{{projectID}}"
 							]
 						}
 					},
@@ -389,13 +418,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fadae68febd9a365f355004",
+							"raw": "{{url}}/projects/{{projectID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fadae68febd9a365f355004"
+								"{{projectID}}"
 							]
 						}
 					},
@@ -409,6 +438,20 @@
 			"item": [
 				{
 					"name": "Create issue (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9650fcbb-e74c-431b-91fa-16fa23b1842a",
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    pm.environment.set('issueID', pm.response.json()._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -422,13 +465,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues",
+							"raw": "{{url}}/projects/{{projectID}}/issues",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues"
 							]
 						}
@@ -437,6 +480,30 @@
 				},
 				{
 					"name": "Get issues (sorting; pagination)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "36b90b4b-a368-44b7-bb32-fe3b07c46919",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "965bfcc8-5a44-4b26-b7d2-b17dc075a95b",
+								"exec": [
+									"if (pm.response.code == 200) {\r",
+									"    pm.environment.set('issueID', pm.response.json()[0]._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -444,13 +511,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues?sortBy=createdAt:desc",
+							"raw": "{{url}}/projects/{{projectID}}/issues?sortBy=createdAt:desc",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues"
 							],
 							"query": [
@@ -472,15 +539,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf0345996cbcb467e61fcc",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf0345996cbcb467e61fcc"
+								"{{issueID}}"
 							]
 						}
 					},
@@ -493,7 +560,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Updated.\",\n    \"description\": \"Also updated.\",\n    \"labels\": [\"5fbf5d0b3c2e99df901d87b3\", \"5fbf5d0b3c2e99df901d87b4\"]\n}",
+							"raw": "{\n    \"completed\": true,\n    \"title\": \"Updated.\",\n    \"description\": \"Also updated.\",\n    \"labels\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -501,15 +568,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf5e940f92a9e0325f1bf7",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf5e940f92a9e0325f1bf7"
+								"{{issueID}}"
 							]
 						}
 					},
@@ -521,15 +588,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf0345996cbcb467e61fcc",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf0345996cbcb467e61fcc"
+								"{{issueID}}"
 							]
 						}
 					},
@@ -543,12 +610,26 @@
 			"item": [
 				{
 					"name": "Create comment (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9d97910-044c-4f05-b726-2cbea7c4f2c2",
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    pm.environment.set('commentID', pm.response.json()._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"text\": \"New Comment (third)\"\n}",
+							"raw": "{\n    \"text\": \"New Comment\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -556,15 +637,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}/comments",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf073c9a3a23b64d9de9ca",
+								"{{issueID}}",
 								"comments"
 							]
 						}
@@ -573,6 +654,20 @@
 				},
 				{
 					"name": "Get comments (pagination)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05ef38c4-4bd4-4b1b-b01f-454063e7886b",
+								"exec": [
+									"if (pm.response.code == 200) {\r",
+									"    pm.environment.set('commentID', pm.response.json()[0]._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -580,15 +675,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments?limit=2&skip=1",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}/comments?limit=2&skip=0",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf073c9a3a23b64d9de9ca",
+								"{{issueID}}",
 								"comments"
 							],
 							"query": [
@@ -598,7 +693,7 @@
 								},
 								{
 									"key": "skip",
-									"value": "1"
+									"value": "0"
 								}
 							]
 						}
@@ -614,17 +709,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments/5fbf4cd157a95dd765cc695c",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf073c9a3a23b64d9de9ca",
-								"comments",
-								"5fbf4cd157a95dd765cc695c"
+								"{{issueID}}"
 							]
 						}
 					},
@@ -645,17 +738,17 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments/5fbf4cd157a95dd765cc695c",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}/comments/{{commentID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf073c9a3a23b64d9de9ca",
+								"{{issueID}}",
 								"comments",
-								"5fbf4cd157a95dd765cc695c"
+								"{{commentID}}"
 							]
 						}
 					},
@@ -667,17 +760,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/issues/5fbf073c9a3a23b64d9de9ca/comments/5fbf4cd157a95dd765cc695c",
+							"raw": "{{url}}/projects/{{projectID}}/issues/{{issueID}}/comments/{{commentID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"issues",
-								"5fbf073c9a3a23b64d9de9ca",
+								"{{issueID}}",
 								"comments",
-								"5fbf4cd157a95dd765cc695c"
+								"{{commentID}}"
 							]
 						}
 					},
@@ -691,6 +784,20 @@
 			"item": [
 				{
 					"name": "Create label (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8c1d8e3f-62f2-4725-a738-0748877f087c",
+								"exec": [
+									"if (pm.response.code == 201) {\r",
+									"    pm.environment.set('labelID', pm.response.json()._id)    \r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -704,13 +811,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels",
+							"raw": "{{url}}/projects/{{projectID}}/labels",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"labels"
 							]
 						}
@@ -726,13 +833,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels",
+							"raw": "{{url}}/projects/{{projectID}}/labels",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"labels"
 							]
 						}
@@ -748,15 +855,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels/5fbf5d193c2e99df901d87b4",
+							"raw": "{{url}}/projects/{{projectID}}/labels/{{labelID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"labels",
-								"5fbf5d193c2e99df901d87b4"
+								"{{labelID}}"
 							]
 						}
 					},
@@ -777,15 +884,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels/5fbf5d193c2e99df901d87b4",
+							"raw": "{{url}}/projects/{{projectID}}/labels/{{labelID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"labels",
-								"5fbf5d193c2e99df901d87b4"
+								"{{labelID}}"
 							]
 						}
 					},
@@ -797,15 +904,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/projects/5fb4ef4a85240f376cf2fbdc/labels/5fbf5d193c2e99df901d87b4",
+							"raw": "{{url}}/projects/{{projectID}}/labels/{{labelID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"projects",
-								"5fb4ef4a85240f376cf2fbdc",
+								"{{projectID}}",
 								"labels",
-								"5fbf5d193c2e99df901d87b4"
+								"{{labelID}}"
 							]
 						}
 					},
@@ -829,7 +936,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "7b12b2d7-a8b6-4d4d-b506-58ee6f2df8ce",
+				"id": "df34bf97-e5d8-4b78-8e3c-6a952415644d",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -839,7 +946,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "2b75a8ad-6037-43b4-bc26-eb3da6c25719",
+				"id": "ed5a20ea-6c25-4955-a94c-d9576c546efe",
 				"type": "text/javascript",
 				"exec": [
 					""
