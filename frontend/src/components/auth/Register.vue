@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -42,22 +41,11 @@ export default {
     }
   },
   methods: {
-    async registerUser() {
-      try {
-        const response = await axios.post('http://localhost:3000/users', this.register)
-        console.log(response)
-        const token = response.data.token
-        if (token) {
-          localStorage.setItem("jwt", token)
-          localStorage.setItem("userId", response.data.user._id)
-          this.$router.push("/")
-          console.log("Registration successful")
-        } else {
-          console.log("Registration unsuccessful.")
-        }
-      } catch (e) {
-        console.log(e)
-      }
+    registerUser() {
+      console.log(this.register)
+      this.$store.dispatch('register', this.register)
+      .then(() => this.$router.push('/'))
+      .catch(error => console.log(error))
     }
   }
 }

@@ -1,7 +1,10 @@
 <template>
     <div>
-        <Username v-bind:userId="comment.owner" />
+      <div>
+        <Username v-bind:userId="comment.owner" />:
         {{ comment.text }}
+      </div>
+        <small>Created {{ new Date(comment.createdAt).toLocaleDateString() }}</small>
     </div>
 </template>
 

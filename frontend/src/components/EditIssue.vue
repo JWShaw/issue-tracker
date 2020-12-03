@@ -2,12 +2,12 @@
   <b-form @submit="submit">
     <b-form-group
       id="title-input-group"
-      label="Project title:"
+      label="Issue title:"
       label-for="title-input"
     >
       <b-form-input
         id="title-input"
-        v-model="project.title"
+        v-model="issue.title"
         type="text"
         required
         placeholder="Enter title"
@@ -15,44 +15,44 @@
     </b-form-group>
     <b-form-group
       id="description-input-group"
-      label="Project description:"
+      label="Issue description:"
       label-for="description-input"
     >
       <b-form-textarea
         id="description-input"
-        v-model="project.description"
+        v-model="issue.description"
         placeholder="Enter a description..."
         rows="3"
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
-    <b-button type="submit" variant="primary">Create Project</b-button>
-    <b-button variant="danger" href='#/projects'>Cancel</b-button>
+    <b-button type="submit" variant="primary">Update Issue</b-button>
+    <b-button variant="danger" v-bind:href="`#/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}`">Cancel</b-button>
   </b-form>
 </template>
 
 <script>
 
 export default {
-  name: "CreateProject",
+  name: "EditIssue",
   data() {
     return {
-      project: {
+      issue: {
         title: "",
         description: "",
-      },
+      }
     };
   },
   methods: {
     submit() {
-      this.$http.post("http://localhost:3000/projects", this.project)
+      this.$http.patch(`http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}`, this.issue)
       .then(() => {
-        this.$swal('Project created successfully!', {
+        this.$swal('Issue edited successfully!', {
             icon: "success",
             buttons: false,
             timer: 1500,
         })
-        this.$router.push('../projects')
+        this.$router.push('./')
         return 
       })
       .catch((err) => {
@@ -65,6 +65,10 @@ export default {
       })
     },
   },
+  created: async function() {
+    const res = await this.$http.get(`http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}`)
+    this.issue.title = res.data.title
+    this.issue.description = res.data.description
+  }
 };
 </script>
-

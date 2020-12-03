@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
@@ -50,6 +51,22 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/projects/:projId/edit',
+    name: 'Edit Project',
+    component: () => import('../views/EditProject.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/projects/:projId/issues/:issueId/edit',
+    name: 'Edit Issue',
+    component: () => import('../views/EditIssue.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -59,7 +76,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem('jwt') == null) {
+    if (!store.getters.isLoggedIn) {
       next({
         path: '/login',
         params: { nextUrl: to.fullPath }

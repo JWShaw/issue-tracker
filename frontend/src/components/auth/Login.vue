@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -34,22 +34,10 @@ export default {
     }
   },
   methods: {
-    async loginUser() {
-      try {
-        const response = await axios.post('http://localhost:3000/users/login', this.login)
-        console.log(response)
-        const token = response.data.token
-        if (token) {
-          localStorage.setItem("jwt", token)
-          localStorage.setItem("userId", response.data.user._id)
-          this.$router.push("/")
-          console.log("Login Successful")
-        } else {
-          console.log("Login Unsuccessful")
-        }
-      } catch (e) {
-        console.log(e)
-      }
+    loginUser() {
+      this.$store.dispatch('login', this.login)
+      .then(() => this.$router.push('/'))
+      .catch(error => console.log(error))
     }
   }
 }

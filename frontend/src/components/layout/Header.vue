@@ -30,19 +30,19 @@
             <b-dropdown-item href="#">RU</b-dropdown-item>
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown> -->
-          <div>
+          <div v-if="this.$store.getters.isLoggedIn">
             <b-nav-item-dropdown right>
               <template #button-content>
-                <em>{{ user._id }}</em>
+                <em>{{ }}</em>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </div>
-          <!-- <b-button-group v-else>
+          <b-button-group v-else>
             <b-button variant="outline-light" href="#/login">Login</b-button>
             <b-button variant="light" href="#/register">Register</b-button>
-          </b-button-group> -->
+          </b-button-group>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -50,26 +50,13 @@
 </template>
 
 <script>
-import VueJWTDecode from "vue-jwt-decode"
 export default {
   name: 'Header',
-  data() {
-    return {
-      user: {}
-    }
-  },
   methods: {
-    getUserInfo() {
-      const token = localStorage.getItem("jwt")
-      const decoded = VueJWTDecode.decode(token)
-      console.log(decoded)
-      this.user = decoded
-    },
     logout() {
-      localStorage.removeItem("jwt")
-      this.user = {}
-      this.$router.push("/")
-      console.log(this.user == true)
+      this.$store.dispatch('logout')
+      .then(() => this.$router.push("/"))
+      .catch(error => console.log(error))
     }
   }
 }

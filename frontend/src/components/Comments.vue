@@ -1,9 +1,11 @@
 <template>
 <div>
-  <h4>Comments</h4>
-  <div v-bind:key="comment.id" v-for="comment in comments">
-    <CommentItem v-bind:comment="comment" />
-  </div>
+  <h3>Comments</h3>
+  <b-list-group v-bind:key="comment.id" v-for="comment in comments">
+    <b-list-group-item>
+      <CommentItem v-bind:comment="comment" />
+    </b-list-group-item>
+  </b-list-group>
 </div>
 </template>
 

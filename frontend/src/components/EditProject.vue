@@ -26,33 +26,33 @@
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
-    <b-button type="submit" variant="primary">Create Project</b-button>
-    <b-button variant="danger" href='#/projects'>Cancel</b-button>
+    <b-button type="submit" variant="primary">Update Project</b-button>
+    <b-button variant="danger" v-bind:href="`#/projects/${this.$route.params.projId}`">Cancel</b-button>
   </b-form>
 </template>
 
 <script>
 
 export default {
-  name: "CreateProject",
+  name: "EditProject",
   data() {
     return {
       project: {
         title: "",
         description: "",
-      },
+      }
     };
   },
   methods: {
     submit() {
-      this.$http.post("http://localhost:3000/projects", this.project)
+      this.$http.patch(`http://localhost:3000/projects/${this.$route.params.projId}`, this.project)
       .then(() => {
-        this.$swal('Project created successfully!', {
+        this.$swal('Project edited successfully!', {
             icon: "success",
             buttons: false,
             timer: 1500,
         })
-        this.$router.push('../projects')
+        this.$router.push('./')
         return 
       })
       .catch((err) => {
@@ -65,6 +65,10 @@ export default {
       })
     },
   },
+  created: async function() {
+    const res = await this.$http.get(`http://localhost:3000/projects/${this.$route.params.projId}`)
+    this.project.title = res.data.title
+    this.project.description = res.data.description
+  }
 };
 </script>
-
