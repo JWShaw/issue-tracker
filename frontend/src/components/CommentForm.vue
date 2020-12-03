@@ -18,7 +18,6 @@
 </template>
 
 <script>
-
 export default {
   name: "CommentForm",
   data() {
@@ -30,16 +29,20 @@ export default {
   },
   methods: {
     submit() {
-      this.$http.post(`http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}/comments`, this.comment)
-      .then(() => this.$emit('update-view'))
-      .catch((err) => {
-        console.log(err);
-        this.$swal('Error!', {
+      this.$http
+        .post(
+          `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}/comments`,
+          this.comment
+        )
+        .then(() => this.$emit("update-view"))
+        .catch((err) => {
+          console.log(err);
+          this.$swal("Error!", {
             icon: "error",
             buttons: false,
             timer: 1500,
-        })
-      })
+          });
+        });
     },
   },
 };

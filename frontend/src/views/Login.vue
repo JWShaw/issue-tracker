@@ -8,7 +8,7 @@
 import login from "../components/auth/Login";
 export default {
   components: {
-    login
-  }
+    login,
+  },
 };
 </script>

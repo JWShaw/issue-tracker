@@ -1,20 +1,22 @@
 <template>
+  <div>
     <div>
-      <div>
-        <Username v-bind:userId="comment.owner" />:
-        {{ comment.text }}
-      </div>
-        <small>Created {{ new Date(comment.createdAt).toLocaleDateString() }}</small>
+      <Username v-bind:userId="comment.owner" />:
+      {{ comment.text }}
     </div>
+    <small
+      >Created {{ new Date(comment.createdAt).toLocaleDateString() }}</small
+    >
+  </div>
 </template>
 
 <script>
-import Username from './Username.vue'
+import Username from "./Username.vue";
 
 export default {
   name: "CommentItem",
   components: {
-      Username
+    Username,
   },
   props: ["comment"],
 };

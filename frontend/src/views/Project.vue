@@ -1,38 +1,41 @@
 <template>
   <div class="project">
-      <Issues v-bind:issues="issues" v-bind:project="project"/>
+    <Issues v-bind:issues="issues" v-bind:project="project" />
   </div>
 </template>
 
 <script>
-import Issues from '../components/Issues';
-import axios from 'axios';
+import Issues from "../components/Issues";
+import axios from "axios";
 
 export default {
   components: {
-    Issues
+    Issues,
   },
   data() {
     return {
       project: {},
-      issues: []
-    }
+      issues: [],
+    };
   },
   created() {
-    axios.get('http://localhost:3000/projects/' + this.$route.params.projId)
-    .then((res) => {
-        return this.project = res.data
-    })
-    .catch((err) => console.log(err));
+    axios
+      .get("http://localhost:3000/projects/" + this.$route.params.projId)
+      .then((res) => {
+        return (this.project = res.data);
+      })
+      .catch((err) => console.log(err));
 
-    axios.get(
-        'http://localhost:3000/projects/' + 
-        this.$route.params.projId + 
-        '/issues'
-    ).then((res) => {
-        return this.issues = res.data
-    })
-    .catch((err) => console.log(err));
-  }
-}
+    axios
+      .get(
+        "http://localhost:3000/projects/" +
+          this.$route.params.projId +
+          "/issues"
+      )
+      .then((res) => {
+        return (this.issues = res.data);
+      })
+      .catch((err) => console.log(err));
+  },
+};
 </script>

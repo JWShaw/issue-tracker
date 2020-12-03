@@ -1,80 +1,81 @@
 <template>
-<div>
-  <div class="d-flex w-100 align-items-center justify-content-between topbar">
-    <div>
-      <h3>{{ project.title }}</h3>
-      <p>
-        {{ this.issues.length }} issues;
-        {{ issues.filter((j) => !j.completed).length }} open;
-        {{ issues.filter((j) => j.completed).length  }} closed
-      </p>
+  <div>
+    <div class="d-flex w-100 align-items-center justify-content-between topbar">
+      <div>
+        <h3>{{ project.title }}</h3>
+        <p>
+          {{ this.issues.length }} issues;
+          {{ issues.filter((j) => !j.completed).length }} open;
+          {{ issues.filter((j) => j.completed).length }} closed
+        </p>
+      </div>
+      <b-button
+        v-bind:href="'#/projects/' + $route.params.projId + '/createissue'"
+      >
+        Create Issue
+      </b-button>
+      <b-button
+        v-bind:href="'#/projects/' + $route.params.projId + '/edit'"
+        v-if="this.$store.getters.isLoggedIn"
+      >
+        Edit Project
+      </b-button>
+      <b-button
+        @click="deleteProject"
+        v-if="this.$store.getters.isLoggedIn"
+        variant="danger"
+      >
+        Delete Project
+      </b-button>
     </div>
-    <b-button
-      v-bind:href="'#/projects/'+$route.params.projId+'/createissue'"
-    >
-      Create Issue
-    </b-button>
-    <b-button
-     v-bind:href="'#/projects/'+$route.params.projId+'/edit'"
-     v-if="this.$store.getters.isLoggedIn"
-    >
-     Edit Project
-    </b-button>
-    <b-button
-      @click="deleteProject"
-      v-if="this.$store.getters.isLoggedIn"
-      variant="danger"
-    >
-      Delete Project
-    </b-button>
+    <b-list-group v-bind:key="issue.id" v-for="issue in issues">
+      <b-list-group-item
+        v-bind:href="`#/projects/${$route.params.projId}/issues/${issue._id}`"
+        class="flex-column align-items-start"
+      >
+        <IssueItem v-bind:issue="issue" />
+      </b-list-group-item>
+    </b-list-group>
   </div>
-  <b-list-group v-bind:key="issue.id" v-for="issue in issues">
-    <b-list-group-item 
-     v-bind:href="`#/projects/${$route.params.projId}/issues/${issue._id}`"
-     class="flex-column align-items-start"
-    >
-    <IssueItem v-bind:issue="issue" />
-    </b-list-group-item>
-  </b-list-group>
-</div>
 </template>
 
 <script>
-import IssueItem from './IssueItem.vue'
+import IssueItem from "./IssueItem.vue";
 
 export default {
   name: "Issues",
   components: {
-    IssueItem
+    IssueItem,
   },
   props: ["issues", "project"],
   methods: {
     deleteProject() {
-      this.$http.delete(`http://localhost:3000/projects/${this.project._id}`)
-      .then(() => {
-        this.$swal('Project deleted successfully!', {
+      this.$http
+        .delete(`http://localhost:3000/projects/${this.project._id}`)
+        .then(() => {
+          this.$swal("Project deleted successfully!", {
             icon: "success",
             buttons: false,
             timer: 1500,
+          });
+          this.$router.push("./");
+          return;
         })
-        this.$router.push('./')
-        return 
-      })
-      .catch((err) => {
-        console.log(err);
-        this.$swal('Error!', {
+        .catch((err) => {
+          console.log(err);
+          this.$swal("Error!", {
             icon: "error",
             buttons: false,
             timer: 1500,
-        })
-      })
-    }
-  }
-}
+          });
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .topbar {
-    margin-bottom: 1em;
-  }
+.topbar {
+  margin-bottom: 1em;
+}
 </style>

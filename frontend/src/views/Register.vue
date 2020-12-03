@@ -8,7 +8,7 @@
 import register from "../components/auth/Register";
 export default {
   components: {
-    register
-  }
+    register,
+  },
 };
 </script>
