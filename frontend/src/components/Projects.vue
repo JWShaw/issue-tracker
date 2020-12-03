@@ -1,8 +1,8 @@
 
 <template>
 <div>
-  <div class="d-flex w-100 justify-content-between topbar">
-    <h4>All Projects</h4>
+  <div class="d-flex w-100 align-items-center justify-content-between topbar">
+    <h1>All Projects</h1>
     <b-button href="#/createproject">New Project</b-button>
   </div>
   <b-list-group v-bind:key="project.id" v-for="project in projects">

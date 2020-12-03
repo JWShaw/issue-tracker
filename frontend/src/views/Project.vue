@@ -1,6 +1,6 @@
 <template>
   <div class="project">
-      <Issues v-bind:issues="issues"/>
+      <Issues v-bind:issues="issues" v-bind:project="project"/>
   </div>
 </template>
 

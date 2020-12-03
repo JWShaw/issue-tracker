@@ -1,11 +1,14 @@
 <template>
 <div>
-  <div class="d-flex w-100 justify-content-between topbar">
-    <h4>
-      {{ this.issues.length }} issues;
-      {{ issues.filter((j) => !j.completed).length }} open;
-      {{ issues.filter((j) => j.completed).length  }} closed
-    </h4>
+  <div class="d-flex w-100 align-items-center justify-content-between topbar">
+    <div>
+      <h3>{{ project.title }}</h3>
+      <par>
+        {{ this.issues.length }} issues;
+        {{ issues.filter((j) => !j.completed).length }} open;
+        {{ issues.filter((j) => j.completed).length  }} closed
+      </par>
+    </div>
     <b-button v-bind:href="'#/projects/'+$route.params.projId+'/createissue'">Create Issue</b-button>
   </div>
   <b-list-group v-bind:key="issue.id" v-for="issue in issues">
@@ -27,7 +30,7 @@ export default {
   components: {
     IssueItem
   },
-  props: ["issues"]
+  props: ["issues", "project"]
 }
 </script>
 
