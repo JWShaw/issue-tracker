@@ -6,8 +6,7 @@
     "start": "node src/index.js",
     "dev": "concurrently \"npm run devBackend\" \"cd client && npm run serve\"",
     "devBackend": "env-cmd -f ./config/dev.env nodemon src/index.js",
-    "test": "env-cmd -f ./config/test.env jest --watch --runInBand",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "test": "env-cmd -f ./config/test.env jest --watch --runInBand"
   },
   "jest": {
     "testEnvironment": "node"
