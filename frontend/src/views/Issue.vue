@@ -26,18 +26,25 @@
     </b-button>
     <hr />
     <CommentForm v-if="this.$store.getters.isLoggedIn" />
-    <Comments v-bind:comments="comments" class="comments" />
+    <div class="comments">
+      <h3>Comments</h3>
+      <b-list-group v-bind:key="comment.id" v-for="comment in comments">
+        <b-list-group-item>
+          <CommentItem v-bind:comment="comment" />
+        </b-list-group-item>
+      </b-list-group>
+    </div>
   </div>
 </template>
 
 <script>
-import Comments from "../components/Comments";
 import CommentForm from "../components/CommentForm";
+import CommentItem from "../components/CommentItem";
 
 export default {
   components: {
     CommentForm,
-    Comments,
+    CommentItem
   },
   data() {
     return {

@@ -22,9 +22,7 @@
         v-model="register.password"
         required
       />
-      <button class="btn btn-primary" type="submit">
-        Register
-      </button>
+      <button class="btn btn-primary" type="submit">Register</button>
     </form>
   </div>
 </template>
@@ -36,17 +34,18 @@ export default {
       register: {
         name: "",
         email: "",
-        password: ""
-      }
-    }
+        password: "",
+      },
+    };
   },
   methods: {
     registerUser() {
-      console.log(this.register)
-      this.$store.dispatch('register', this.register)
-      .then(() => this.$router.push('/'))
-      .catch(error => console.log(error))
-    }
-  }
-}
+      console.log(this.register);
+      this.$store
+        .dispatch("register", this.register)
+        .then(() => this.$router.push("/"))
+        .catch((error) => console.log(error));
+    },
+  },
+};
 </script>

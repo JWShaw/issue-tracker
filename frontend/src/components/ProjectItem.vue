@@ -2,8 +2,8 @@
   <div class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ project.title }}</h5>
-      <small
-        >Created {{ new Date(project.createdAt).toLocaleDateString() }}
+      <small>
+        Created {{ new Date(project.createdAt).toLocaleDateString() }}
       </small>
     </div>
 
