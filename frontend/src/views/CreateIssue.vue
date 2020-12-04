@@ -27,7 +27,7 @@
       ></b-form-textarea>
     </b-form-group>
     <b-button type="submit" variant="primary">Create Issue</b-button>
-    <b-button variant="danger" href=''>Cancel</b-button>
+    <b-button variant="danger" href="">Cancel</b-button>
   </b-form>
 </template>
 
@@ -43,17 +43,22 @@ export default {
   },
   methods: {
     submit() {
-      this.$http.post(`http://localhost:3000/projects/${this.$route.params.projId}/issues`, this.issue)
-      .then(() => {
-        this.$swal('Issue created successfully!', {
+      this.$http
+        .post(
+          `http://localhost:3000/projects/${this.$route.params.projId}/issues`,
+          this.issue,
+          { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+        )
+        .then(() => {
+          this.$swal("Issue created successfully!", {
             icon: "success",
             buttons: false,
             timer: 1500,
+          });
+          this.$router.push(`../${this.$route.params.projId}`);
+          return;
         })
-        this.$router.push(`../${this.$route.params.projId}`)
-        return 
-      })
-      .catch((err) => console.log(err));
+        .catch((err) => console.log(err));
     },
   },
 };

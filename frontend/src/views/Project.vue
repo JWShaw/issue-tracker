@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import IssueItem from "../components/IssueItem"
+import IssueItem from "../components/IssueItem";
 
 export default {
   components: {
-    IssueItem
+    IssueItem,
   },
   data() {
     return {
@@ -55,7 +55,9 @@ export default {
   methods: {
     deleteProject() {
       this.$http
-        .delete(`http://localhost:3000/projects/${this.project._id}`)
+        .delete(`http://localhost:3000/projects/${this.project._id}`, {
+          headers: { Authorization: `Bearer ${localStorage.jwt}` },
+        })
         .then(() => {
           this.$swal("Project deleted successfully!", {
             icon: "success",
@@ -73,7 +75,7 @@ export default {
             timer: 1500,
           });
         });
-    }
+    },
   },
   created() {
     this.$http

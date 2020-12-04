@@ -44,7 +44,7 @@ import CommentItem from "../components/CommentItem";
 export default {
   components: {
     CommentForm,
-    CommentItem
+    CommentItem,
   },
   data() {
     return {
@@ -57,7 +57,8 @@ export default {
     deleteIssue() {
       this.$http
         .delete(
-          `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.issue._id}`
+          `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.issue._id}`,
+          { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
         .then(() => {
           this.$swal("Issue deleted successfully!", {

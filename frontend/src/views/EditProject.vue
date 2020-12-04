@@ -50,7 +50,8 @@ export default {
       this.$http
         .patch(
           `http://localhost:3000/projects/${this.$route.params.projId}`,
-          this.project
+          this.project,
+          { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
         .then(() => {
           this.$swal("Project edited successfully!", {

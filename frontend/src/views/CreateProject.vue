@@ -27,7 +27,7 @@
       ></b-form-textarea>
     </b-form-group>
     <b-button type="submit" variant="primary">Create Project</b-button>
-    <b-button variant="danger" href='#/projects'>Cancel</b-button>
+    <b-button variant="danger" href="#/projects">Cancel</b-button>
   </b-form>
 </template>
 
@@ -43,24 +43,27 @@ export default {
   },
   methods: {
     submit() {
-      this.$http.post("http://localhost:3000/projects", this.project)
-      .then(() => {
-        this.$swal('Project created successfully!', {
+      this.$http
+        .post("http://localhost:3000/projects", this.project, {
+          headers: { Authorization: `Bearer ${localStorage.jwt}` },
+        })
+        .then(() => {
+          this.$swal("Project created successfully!", {
             icon: "success",
             buttons: false,
             timer: 1500,
+          });
+          this.$router.push("../projects");
+          return;
         })
-        this.$router.push('../projects')
-        return 
-      })
-      .catch((err) => {
-        console.log(err);
-        this.$swal('Error!', {
+        .catch((err) => {
+          console.log(err);
+          this.$swal("Error!", {
             icon: "error",
             buttons: false,
             timer: 1500,
-        })
-      })
+          });
+        });
     },
   },
 };

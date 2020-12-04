@@ -32,7 +32,8 @@ export default {
       this.$http
         .post(
           `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}/comments`,
-          this.comment
+          this.comment,
+          { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
         .then(() => this.$emit("update-view"))
         .catch((err) => {
