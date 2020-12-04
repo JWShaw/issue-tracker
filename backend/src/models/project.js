@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Issue = require('./issue')
+const Label = require('./label')
 
 const projectSchema = new mongoose.Schema({
     title: {
@@ -38,6 +40,14 @@ projectSchema.virtual('issues', {
     foreignField: 'project'
 })
 
+// Delete child issues and labels when project is removed
+projectSchema.pre('findOneAndDelete', async function (next) {
+    const proj = this
+    await Issue.deleteMany({ project: proj._conditions._id })
+    await Label.deleteMany({ project: proj._conditions._id })
+    next()
+})
+
 const Project = mongoose.model('Project', projectSchema)
 
 module.exports = Project
@@ -48,12 +58,3 @@ module.exports = Project
     // * People who can mark issues as completed and change labels, etc
     // * End users who can just add issues/comments
     // * View-only
-
-// Router: gives all labels for a project
-// * give all issues for a project
-// * give all the users for a project
-
-// create a new issue
-// create a new label
-
-// add users to the project
