@@ -14,7 +14,6 @@
 
 <script>
 import ProjectItem from "../components/ProjectItem.vue";
-import axios from "axios";
 
 export default {
   components: {
@@ -26,8 +25,8 @@ export default {
     };
   },
   created() {
-    axios
-      .get("http://localhost:3000/projects")
+    this.$http
+      .get("/projects")
       .then((res) => {
         this.projects = res.data;
       })

@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "Username",
@@ -14,8 +13,8 @@ export default {
     };
   },
   created() {
-    axios
-      .get("http://localhost:3000/users/" + this.userId)
+    this.$http
+      .get("/users/" + this.userId)
       .then((res) => {
         return (this.user = res.data);
       })

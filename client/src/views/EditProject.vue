@@ -49,7 +49,7 @@ export default {
     submit() {
       this.$http
         .patch(
-          `http://localhost:3000/projects/${this.$route.params.projId}`,
+          `/projects/${this.$route.params.projId}`,
           this.project,
           { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
@@ -74,7 +74,7 @@ export default {
   },
   created: async function () {
     const res = await this.$http.get(
-      `http://localhost:3000/projects/${this.$route.params.projId}`
+      `/projects/${this.$route.params.projId}`
     );
     this.project.title = res.data.title;
     this.project.description = res.data.description;

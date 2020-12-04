@@ -26,12 +26,8 @@
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
-    <b-button type="submit" variant="primary">Update Issue</b-button>
-    <b-button
-      variant="danger"
-      v-bind:href="`#/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}`"
-      >Cancel</b-button
-    >
+    <b-button type="submit" variant="primary">Create Issue</b-button>
+    <b-button variant="danger" href="">Cancel</b-button>
   </b-form>
 </template>
 
@@ -48,36 +44,22 @@ export default {
   methods: {
     submit() {
       this.$http
-        .patch(
-          `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}`,
+        .post(
+          `/projects/${this.$route.params.projId}/issues`,
           this.issue,
           { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
         .then(() => {
-          this.$swal("Issue edited successfully!", {
+          this.$swal("Issue created successfully!", {
             icon: "success",
             buttons: false,
             timer: 1500,
           });
-          this.$router.push("./");
+          this.$router.push(`../${this.$route.params.projId}`);
           return;
         })
-        .catch((err) => {
-          console.log(err);
-          this.$swal("Error!", {
-            icon: "error",
-            buttons: false,
-            timer: 1500,
-          });
-        });
+        .catch((err) => console.log(err));
     },
-  },
-  created: async function () {
-    const res = await this.$http.get(
-      `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.$route.params.issueId}`
-    );
-    this.issue.title = res.data.title;
-    this.issue.description = res.data.description;
   },
 };
 </script>

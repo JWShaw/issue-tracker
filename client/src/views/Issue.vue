@@ -57,7 +57,7 @@ export default {
     deleteIssue() {
       this.$http
         .delete(
-          `http://localhost:3000/projects/${this.$route.params.projId}/issues/${this.issue._id}`,
+          `/projects/${this.$route.params.projId}/issues/${this.issue._id}`,
           { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
         .then(() => {
@@ -85,7 +85,7 @@ export default {
   created() {
     this.$http
       .get(
-        "http://localhost:3000/projects/" +
+        "/projects/" +
           this.$route.params.projId +
           "/issues/" +
           this.$route.params.issueId
@@ -100,7 +100,7 @@ export default {
   updated() {
     this.$http
       .get(
-        "http://localhost:3000/projects/" +
+        "/projects/" +
           this.$route.params.projId +
           "/issues/" +
           this.$route.params.issueId +

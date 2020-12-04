@@ -55,7 +55,7 @@ export default {
   methods: {
     deleteProject() {
       this.$http
-        .delete(`http://localhost:3000/projects/${this.project._id}`, {
+        .delete(`/projects/${this.project._id}`, {
           headers: { Authorization: `Bearer ${localStorage.jwt}` },
         })
         .then(() => {
@@ -79,7 +79,7 @@ export default {
   },
   created() {
     this.$http
-      .get("http://localhost:3000/projects/" + this.$route.params.projId)
+      .get("/projects/" + this.$route.params.projId)
       .then((res) => {
         return (this.project = res.data);
       })
@@ -87,7 +87,7 @@ export default {
 
     this.$http
       .get(
-        "http://localhost:3000/projects/" +
+        "/projects/" +
           this.$route.params.projId +
           "/issues"
       )

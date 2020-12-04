@@ -1,19 +1,36 @@
 {
-  "name": "issue-tracker",
+  "name": "task-manager",
   "version": "1.0.0",
-  "description": "For our term project in CPSC 300: Software Engineering, we decided to build a standalone web application with functionality similar to that of the on-board issue tracker in GitHub.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run serve\""
+    "start": "node src/index.js",
+    "dev": "concurrently \"npm run devBackend\" \"cd client && npm run serve\"",
+    "devBackend": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "test": "env-cmd -f ./config/test.env jest --watch --runInBand",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://csgit.unbc.ca/shaw5/issue-tracker.git"
+  "jest": {
+    "testEnvironment": "node"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^5.3.0"
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.8",
+    "mongoose": "^5.9.18",
+    "validator": "^13.0.0"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "env-cmd": "^10.1.0",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  },
+  "description": ""
 }

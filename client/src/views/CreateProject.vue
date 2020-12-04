@@ -44,7 +44,7 @@ export default {
   methods: {
     submit() {
       this.$http
-        .post("http://localhost:3000/projects", this.project, {
+        .post("/projects", this.project, {
           headers: { Authorization: `Bearer ${localStorage.jwt}` },
         })
         .then(() => {
