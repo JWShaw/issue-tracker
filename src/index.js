@@ -5,7 +5,7 @@ const path = require('path')
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '..', 'pubic')))
 
-    app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'index.html')))
+    app.get('*', (req, res) => res.sendFile('../public/index.html'))
 }
 
 const port = process.env.PORT || 3000
