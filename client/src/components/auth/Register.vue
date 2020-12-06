@@ -43,7 +43,7 @@ export default {
       console.log(this.register);
       this.$store
         .dispatch("register", this.register)
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("../projects"))
         .catch((error) => console.log(error));
     },
   },

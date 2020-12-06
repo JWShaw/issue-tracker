@@ -34,7 +34,7 @@ export default {
     loginUser() {
       this.$store
         .dispatch("login", this.login)
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("../projects/"))
         .catch((error) => console.log(error));
     },
   },

@@ -1,5 +1,6 @@
 <template>
-  <a v-bind:href="'#/users/' + userId">{{ user.name }}</a>
+  <a v-if="userValid" v-bind:href="'#/users/' + userId">{{ user.name }}</a>
+  <a v-else>Deleted User</a>
 </template>
 
 <script>
@@ -10,6 +11,7 @@ export default {
   data() {
     return {
       user: {},
+      userValid: true,
     };
   },
   created() {
@@ -18,7 +20,9 @@ export default {
       .then((res) => {
         return (this.user = res.data);
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        this.userValid = false;
+      });
   },
 };
 </script>

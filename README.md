@@ -13,6 +13,11 @@ Our primary remote repository is hosted on-site at University of Northern Britis
 
 ## Setting Up Development Environment
 
+You will need:
+* A recent version of Node.js.  The author of this document uses 15.2.1, but the most recent LTS release should work.
+* An instance of MongoDB running locally on port 27017
+
+
 ### Installing Dependencies
 
 Initially, you will need to run `npm install` in two different directories:
@@ -27,6 +32,6 @@ Initially, you will need to run `npm install` in two different directories:
 
 In development, the backend runs on Port 3000 while the frontend runs on Port 8080.  To view the frontend in your browser, visit `localhost:8080`.
 
-### Running the project (production)
+## Deploying
 
 * To create a production-ready build, set the environment variable `NODE_ENV=production` and also run the `npm run build` script on the `client` directory.  The REST API and frontend will be served on the same port (which is 3000 by default, but can be set using the `PORT` environment variable).
