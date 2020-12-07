@@ -9,24 +9,28 @@
           {{ issues.filter((j) => j.completed).length }} closed
         </p>
       </div>
-      <b-button
-        v-bind:href="'#/projects/' + $route.params.projId + '/createissue'"
-      >
-        Create Issue
-      </b-button>
-      <b-button
-        v-bind:href="'#/projects/' + $route.params.projId + '/edit'"
-        v-if="this.$store.getters.isLoggedIn"
-      >
-        Edit Project
-      </b-button>
-      <b-button
-        @click="deleteProject"
-        v-if="this.$store.getters.isLoggedIn"
-        variant="danger"
-      >
-        Delete Project
-      </b-button>
+      <b-button-group>
+        <b-button
+          variant="primary"
+          v-bind:href="'#/projects/' + $route.params.projId + '/createissue'"
+        >
+          Create Issue
+        </b-button>
+        <b-button
+          variant="secondary"
+          v-bind:href="'#/projects/' + $route.params.projId + '/edit'"
+          v-if="this.$store.getters.isLoggedIn"
+        >
+          Edit Project
+        </b-button>
+        <b-button
+          @click="deleteProject"
+          v-if="this.$store.getters.isLoggedIn"
+          variant="danger"
+        >
+          Delete Project
+        </b-button>
+      </b-button-group>
     </div>
     <b-list-group v-bind:key="issue.id" v-for="issue in issues">
       <b-list-group-item
@@ -86,11 +90,7 @@ export default {
       .catch((err) => console.log(err));
 
     this.$http
-      .get(
-        "/projects/" +
-          this.$route.params.projId +
-          "/issues"
-      )
+      .get("/projects/" + this.$route.params.projId + "/issues")
       .then((res) => {
         return (this.issues = res.data);
       })

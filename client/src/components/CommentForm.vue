@@ -35,7 +35,10 @@ export default {
           this.comment,
           { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
         )
-        .then(() => this.$emit("update-view"))
+        .then(() => {
+          this.comment.text = ''
+          this.$emit("update-view")
+        })
         .catch((err) => {
           console.log(err);
           this.$swal("Error!", {

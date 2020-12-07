@@ -67,7 +67,7 @@ export default {
             buttons: false,
             timer: 1500,
           });
-          return;
+          return this.$router.push('./projects');
         })
         .catch((err) => {
           console.log(err);

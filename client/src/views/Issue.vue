@@ -1,29 +1,35 @@
 <template>
   <div class="issue">
-    <h1>{{ issue.title }}</h1>
-    <div>
-      {{ issue.description }}
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <div>
+        <h2>{{ issue.title }}</h2>
+      </div>
+      <b-button-group>
+        <b-button
+          v-bind:href="
+            '#/projects/' +
+            $route.params.projId +
+            '/issues/' +
+            $route.params.issueId +
+            '/edit'
+          "
+          v-if="this.$store.getters.isLoggedIn"
+        >
+          Edit Issue
+        </b-button>
+        <b-button
+          @click="deleteIssue"
+          v-if="this.$store.getters.isLoggedIn"
+          variant="danger"
+        >
+          Delete Issue
+        </b-button>
+      </b-button-group>
     </div>
+    <p>
+      {{ issue.description }}
+    </p>
 
-    <b-button
-      v-bind:href="
-        '#/projects/' +
-        $route.params.projId +
-        '/issues/' +
-        $route.params.issueId +
-        '/edit'
-      "
-      v-if="this.$store.getters.isLoggedIn"
-    >
-      Edit Issue
-    </b-button>
-    <b-button
-      @click="deleteIssue"
-      v-if="this.$store.getters.isLoggedIn"
-      variant="danger"
-    >
-      Delete Issue
-    </b-button>
     <hr />
     <CommentForm v-if="this.$store.getters.isLoggedIn" />
     <div class="comments">
@@ -116,6 +122,10 @@ export default {
 
 <style scoped>
 .comments {
-  margin-top: 5em;
+  margin-top: 2em;
+}
+
+.issue-content {
+  outline: 1px;
 }
 </style>

@@ -16,9 +16,9 @@
           <div v-if="this.$store.getters.isLoggedIn">
             <b-nav-item-dropdown right>
               <template #button-content>
-                <em>{{ }}</em>
+                <em>My Account</em>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item href="#/myaccount">Edit Information</b-dropdown-item>
               <b-dropdown-item @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </div>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Header",
   methods: {
