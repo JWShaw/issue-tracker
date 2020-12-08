@@ -26,13 +26,27 @@
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
-    <b-button type="submit" variant="primary">Update Project</b-button>
-    <b-button
-      variant="danger"
-      v-bind:href="`#/projects/${this.$route.params.projId}`"
-      >Cancel</b-button
+    <b-form-group
+      id="label-input-group"
+      label="Labels:"
+      label-for="label-input"
     >
+      <b-form-tags
+        id="label-input"
+        v-model="labels"
+        placeholder="Add labels..."
+      ></b-form-tags>
+    </b-form-group>
+    <b-button-group>
+      <b-button type="submit" variant="primary">Update Project</b-button>
+      <b-button
+        variant="danger"
+        v-bind:href="`#/projects/${this.$route.params.projId}`"
+        >Cancel</b-button
+      >
+    </b-button-group>
   </b-form>
+
 </template>
 
 <script>
@@ -43,16 +57,24 @@ export default {
         title: "",
         description: "",
       },
+      labels: [],
     };
   },
   methods: {
     submit() {
       this.$http
-        .patch(
-          `/projects/${this.$route.params.projId}`,
-          this.project,
-          { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
-        )
+        .patch(`/projects/${this.$route.params.projId}`, this.project, {
+          headers: { Authorization: `Bearer ${localStorage.jwt}` },
+        })
+        .then(() => {
+          this.labels.forEach((label) => {
+            this.$http.post(
+              `/projects/${this.$route.params.projId}/labels`,
+              { name: label },
+              { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+            );
+          });
+        })
         .then(() => {
           this.$swal("Project edited successfully!", {
             icon: "success",
@@ -73,11 +95,24 @@ export default {
     },
   },
   created: async function () {
-    const res = await this.$http.get(
-      `/projects/${this.$route.params.projId}`
+    const res1 = await this.$http.get(`/projects/${this.$route.params.projId}`);
+    this.project.title = res1.data.title;
+    this.project.description = res1.data.description;
+
+    const res2 = await this.$http.get(
+      `/projects/${this.$route.params.projId}/labels`
     );
-    this.project.title = res.data.title;
-    this.project.description = res.data.description;
+
+    this.labels = res2.data.map((label) => label.name);
+    console.log(this.labels)
+
+    res2.data.map((label) => label._id).forEach(labelId => {
+      console.log(labelId)
+      this.$http.delete(
+        `http://localhost:3000/projects/${this.$route.params.projId}/labels/${labelId}`,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+    })
   },
 };
 </script>

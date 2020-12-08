@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const labelSchema = new mongoose.Schema({
     name: {
         type: String,
+        unique: true,
         trim: true,
         required: true
     },

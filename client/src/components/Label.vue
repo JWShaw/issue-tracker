@@ -14,7 +14,7 @@ export default {
   created() {
     this.$http
       .get(
-        `/projects/${this.projectId}/labels/$this.labelId`
+        `/projects/${this.projectId}/labels/${this.labelId}`
       )
       .then((res) => {
         return (this.label = res.data);
