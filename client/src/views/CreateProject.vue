@@ -26,6 +26,17 @@
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
+    <b-form-group
+      id="label-input-group"
+      label="Labels:"
+      label-for="label-input"
+    >
+      <b-form-tags
+        id="label-input"
+        v-model="labelNames"
+        placeholder="Add labels..."
+      ></b-form-tags>
+    </b-form-group>
     <b-button type="submit" variant="primary">Create Project</b-button>
     <b-button variant="danger" href="#/projects">Cancel</b-button>
   </b-form>
@@ -39,6 +50,7 @@ export default {
         title: "",
         description: "",
       },
+      labelNames: [],
     };
   },
   methods: {
@@ -46,6 +58,15 @@ export default {
       this.$http
         .post("/projects", this.project, {
           headers: { Authorization: `Bearer ${localStorage.jwt}` },
+        })
+        .then((res) => {
+          this.labelNames.forEach((labelName) => {
+            this.$http.post(
+              `/projects/${res.data._id}/labels`,
+              { name: labelName },
+              { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+            );
+          });
         })
         .then(() => {
           this.$swal("Project created successfully!", {
