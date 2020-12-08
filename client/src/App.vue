@@ -19,7 +19,7 @@ export default {
 
 <style>
 .container-fluid {
-  padding: 3% 15%;
   max-width: 1140px;
+  margin-top: 1em;
 }
 </style>
