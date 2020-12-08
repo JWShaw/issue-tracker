@@ -5,7 +5,7 @@
   >
     <div class="d-flex w-100 justify-content-between">
       <div>
-        <h5 class="mb-1">{{ issue.title }}</h5>
+        <h5 class="mb-1">{{ issue.title + (issue.completed ? " (closed)" : "") }}</h5>
         <Label
           v-for="labelId in issue.labels"
           :key="labelId"

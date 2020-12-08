@@ -3,6 +3,7 @@
     <div class="d-flex w-100 align-items-center justify-content-between">
       <div>
         <h2>{{ issue.title }}</h2>
+        <h3 v-if="this.issue.completed">(Closed)</h3>
         <Label
           v-for="labelId in issue.labels"
           :key="labelId"

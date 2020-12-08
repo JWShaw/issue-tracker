@@ -2,6 +2,7 @@
   <div class="home">
     <h1>Welcome to IssueTracker™</h1>
     <h2>A Dr. Jiang Software Gang™ Product</h2>
+    Click the "Projects" link to start tracking issues like a pro! 
   </div>
 </template>
 

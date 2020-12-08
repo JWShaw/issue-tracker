@@ -59,6 +59,21 @@
       </b-form-tags>
     </b-form-group>
 
+    <b-form-group
+      id="closed-input-group"
+      label-for="closed-input"
+    >
+      <b-form-checkbox
+        id="closed-input"
+        v-model="issue.completed"
+        name="closed-input"
+        value="true"
+        unchecked-value="false"
+      >
+        Issue resolved?
+      </b-form-checkbox>
+    </b-form-group>
+
     <b-button type="submit" variant="primary">Update Issue</b-button>
     <b-button
       variant="danger"
@@ -76,6 +91,7 @@ export default {
         title: "",
         description: "",
         labels: [],
+        completed: "false"
       },
       labelObjects: [],
       chosenLabels: [],
@@ -122,6 +138,7 @@ export default {
     );
     this.issue.title = res.data.title;
     this.issue.description = res.data.description;
+    this.issue.completed = res.data.completed;
 
     const res2 = await this.$http
       .get(`/projects/${this.$route.params.projId}/labels`)
