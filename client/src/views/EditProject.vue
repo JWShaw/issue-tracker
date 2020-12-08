@@ -33,7 +33,7 @@
     >
       <b-form-tags
         id="label-input"
-        v-model="labels"
+        v-model="labelNames"
         placeholder="Add labels..."
       ></b-form-tags>
     </b-form-group>
@@ -46,7 +46,6 @@
       >
     </b-button-group>
   </b-form>
-
 </template>
 
 <script>
@@ -57,7 +56,8 @@ export default {
         title: "",
         description: "",
       },
-      labels: [],
+      labelNames: [],
+      existingLabels: [],
     };
   },
   methods: {
@@ -67,13 +67,16 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.jwt}` },
         })
         .then(() => {
-          this.labels.forEach((label) => {
-            this.$http.post(
-              `/projects/${this.$route.params.projId}/labels`,
-              { name: label },
-              { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
-            );
+          this.labelNames.forEach((labelName) => {
+            if (!this.existingLabels.includes(labelName)) {
+              this.addLabel(labelName)
+            }
           });
+          this.existingLabels.forEach((label) => {
+            if (!this.labelNames.includes(label.name)) {
+              this.removeLabel(label)
+            }
+          })
         })
         .then(() => {
           this.$swal("Project edited successfully!", {
@@ -93,6 +96,19 @@ export default {
           });
         });
     },
+    removeLabel(label) {
+      this.$http.delete(
+        `/projects/${this.$route.params.projId}/labels/${label._id}`,
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+    },
+    addLabel(labelName) {
+      this.$http.post(
+        `/projects/${this.$route.params.projId}/labels`,
+        { name: labelName },
+        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
+      );
+    },
   },
   created: async function () {
     const res1 = await this.$http.get(`/projects/${this.$route.params.projId}`);
@@ -102,17 +118,8 @@ export default {
     const res2 = await this.$http.get(
       `/projects/${this.$route.params.projId}/labels`
     );
-
-    this.labels = res2.data.map((label) => label.name);
-    console.log(this.labels)
-
-    res2.data.map((label) => label._id).forEach(labelId => {
-      console.log(labelId)
-      this.$http.delete(
-        `http://localhost:3000/projects/${this.$route.params.projId}/labels/${labelId}`,
-        { headers: { Authorization: `Bearer ${localStorage.jwt}` } }
-      );
-    })
+    this.labelNames = res2.data.map((label) => label.name);
+    this.existingLabels = res2.data;
   },
 };
 </script>
