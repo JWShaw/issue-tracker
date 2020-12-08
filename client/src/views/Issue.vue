@@ -3,6 +3,12 @@
     <div class="d-flex w-100 align-items-center justify-content-between">
       <div>
         <h2>{{ issue.title }}</h2>
+        <Label
+          v-for="labelId in issue.labels"
+          :key="labelId"
+          v-bind:labelId="labelId"
+          v-bind:projectId="$route.params.projId"
+        />
       </div>
       <b-button-group>
         <b-button
@@ -46,11 +52,13 @@
 <script>
 import CommentForm from "../components/CommentForm";
 import CommentItem from "../components/CommentItem";
+import Label from "../components/Label"
 
 export default {
   components: {
     CommentForm,
     CommentItem,
+    Label
   },
   data() {
     return {

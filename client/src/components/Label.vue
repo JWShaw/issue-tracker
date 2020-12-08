@@ -1,5 +1,7 @@
 <template>
-  <b-badge>{{ this.label.name }}</b-badge>
+  <span class="label">
+    <b-badge>{{ this.label.name }}</b-badge>
+  </span>
 </template>
 
 <script>
@@ -13,9 +15,7 @@ export default {
   props: ["labelId", "projectId"],
   created() {
     this.$http
-      .get(
-        `/projects/${this.projectId}/labels/${this.labelId}`
-      )
+      .get(`/projects/${this.projectId}/labels/${this.labelId}`)
       .then((res) => {
         return (this.label = res.data);
       })
@@ -25,4 +25,7 @@ export default {
 </script>
 
 <style scoped>
+.label {
+  margin-right: 2px;
+}
 </style>
