@@ -26,6 +26,9 @@ One can also test the project by setting it up one's self (see next section)
 You will need:
 * A recent version of Node.js.  The author of this document uses 15.2.1, but the most recent LTS release should work.
 * An instance of MongoDB running locally on port 27017
+* A modern browser.  The project has been tested in the latest versions of Firefox and Chrome.
+
+Any modern operating system should support the project.  It has been tested on up-to-date copies of Arch Linux and Windows 10.
 
 ### Installing Dependencies
 
