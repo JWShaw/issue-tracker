@@ -19,14 +19,14 @@
         <b-button
           variant="secondary"
           v-bind:href="'#/projects/' + $route.params.projId + '/edit'"
-          v-if="this.$store.getters.isLoggedIn"
+          v-if="this.currentUserId == this.project.owner"
         >
           Edit Project
         </b-button>
         <b-button
           @click="deleteProject"
-          v-if="this.$store.getters.isLoggedIn"
           variant="danger"
+          v-if="this.currentUserId == this.project.owner"
         >
           Delete Project
         </b-button>
@@ -45,6 +45,7 @@
 
 <script>
 import IssueItem from "../components/IssueItem";
+import VueJWTDecode from 'vue-jwt-decode';
 
 export default {
   components: {
@@ -54,6 +55,7 @@ export default {
     return {
       project: {},
       issues: [],
+      currentUserId: "",
     };
   },
   methods: {
@@ -95,6 +97,8 @@ export default {
         return (this.issues = res.data);
       })
       .catch((err) => console.log(err));
+
+      this.currentUserId = VueJWTDecode.decode(localStorage.jwt)._id
   },
 };
 </script>

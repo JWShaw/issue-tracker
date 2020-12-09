@@ -11,7 +11,7 @@
           v-bind:projectId="$route.params.projId"
         />
       </div>
-      <b-button-group>
+      <b-button-group v-if="this.currentUserId == this.issue.owner">
         <b-button
           v-bind:href="
             '#/projects/' +
@@ -53,13 +53,14 @@
 <script>
 import CommentForm from "../components/CommentForm";
 import CommentItem from "../components/CommentItem";
-import Label from "../components/Label"
+import Label from "../components/Label";
+import VueJWTDecode from "vue-jwt-decode";
 
 export default {
   components: {
     CommentForm,
     CommentItem,
-    Label
+    Label,
   },
   data() {
     return {
@@ -111,6 +112,8 @@ export default {
       .catch((err) => console.log(err));
 
     this.forceRerender();
+
+    this.currentUserId = VueJWTDecode.decode(localStorage.jwt)._id;
   },
   updated() {
     this.$http
