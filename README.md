@@ -2,6 +2,8 @@
 
 For our term project in CPSC 300: Software Engineering, we decided to build a standalone web application with functionality similar to that of the on-board issue tracker in GitHub.
 
+![](./documentation/issue-tracker.png)
+
 ## Team Members
 
 * [Jonathan Shaw](https://github.com/JWShaw)
